@@ -1,23 +1,17 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-const Drawer = createDrawerNavigator();
-const Home = () => {
-  return (
-    <View>
-      <Text>Hello</Text>
-    </View>
-  );
-};
+import StackNavigation from './src/navigator/StackNavigation';
+import {Provider} from 'react-redux';
+import {store} from './src/redux/store';
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={Home} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
+    </Provider>
   );
 };
 
