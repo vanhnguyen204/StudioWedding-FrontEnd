@@ -18,7 +18,7 @@ import ButtonConfirm from '../components/login/ButtonConfirm';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../redux/userAction';
 import axios from 'axios';
-import {IP_Adress, localhost} from '../utils/IP_Adress';
+import {IP_Address, localhost} from '../utils/IP_Address';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -35,16 +35,14 @@ const Login = ({navigation}) => {
 
   const checkLogin = () => {
     axios
-      .post(IP_Adress + '/api/auth/login', {
+      .post(IP_Address + '/api/auth/login', {
         UserName: userName,
         Password: passWord,
       })
       .then(res => {
-        console.log(res.data);
         if (res.data.error) {
           Alert.alert('Thông báo', res.data.error);
         } else {
-          console.log(res.data);
           dispatch(setUser(res.data.user.UserName));
           navigation.navigate('Drawer', {userName: userName});
         }
@@ -69,7 +67,7 @@ const Login = ({navigation}) => {
             onClickFocus={() => inputUser.current.focus()}
             isFocus={inputUser}
             label={'User name'}
-            error={'err'}
+            error={''}
             placeholderTextColor={Color.black()}
             placeholder={'User name'}
           />
@@ -80,7 +78,7 @@ const Login = ({navigation}) => {
             isFocus={inputPass}
             secureTextEntry={isSecure}
             label={'Password'}
-            error={'err'}
+            error={''}
             type={'pass'}
             isSecure={isSecure}
             placeholderTextColor={Color.black()}

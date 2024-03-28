@@ -4,7 +4,7 @@ import Header from '../components/message/Header';
 import Search from '../components/global/Search';
 import ItemMessage from '../components/message/ItemMessage';
 import axios from 'axios';
-import {IP_Adress} from '../utils/IP_Adress';
+import {IP_Address} from '../utils/IP_Address';
 import {useSelector} from 'react-redux';
 
 const Message = ({navigation}) => {
@@ -13,7 +13,7 @@ const Message = ({navigation}) => {
   const [listStaff, setListStaff] = useState([]);
   const fetchListStaff = () => {
     axios
-      .post(IP_Adress + '/api/staffs/', {
+      .post(IP_Address + '/api/staffs/', {
         userName,
       })
       .then(res => {

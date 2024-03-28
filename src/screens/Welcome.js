@@ -38,7 +38,6 @@ export default function Welcome({navigation}) {
   return (
     <View style={{flex: 1}}>
       <Carousel
-
         onSnapToItem={index => setActiveSlide(index)}
         autoplay={true}
         containerCustomStyle={{overflow: 'visible'}}

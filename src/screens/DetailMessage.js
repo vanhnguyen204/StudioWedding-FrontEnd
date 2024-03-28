@@ -18,7 +18,7 @@ import ChatInput from '../components/detailmessage/ChatInput';
 import {io} from 'socket.io-client';
 import {useSelector} from 'react-redux';
 import Header from '../components/detailmessage/Header';
-import {IP_Adress, IP_SocketIo} from '../utils/IP_Adress';
+import {IP_Address, IP_SocketIo} from '../utils/IP_Address';
 import Color from '../assets/fonts/Color';
 import axios from 'axios';
 const socket = io(IP_SocketIo);
@@ -40,7 +40,7 @@ const DetailMessage = ({route, navigation}) => {
 
   const fetchChatBetweenUser = useCallback(() => {
     axios
-      .post(IP_Adress + '/api/messages/', {
+      .post(IP_Address + '/api/messages/', {
         userSend: userName,
         userReceive: userNameReceive,
       })

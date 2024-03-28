@@ -5877,6 +5877,11 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-dropdown-picker@^5.4.6:
+  version "5.4.6"
+  resolved "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.6.tgz"
+  integrity sha512-T1XBHbE++M6aRU3wFYw3MvcOuabhWZ29RK/Ivdls2r1ZkZ62iEBZknLUPeVLMX3x6iUxj4Zgr3X2DGlEGXeHsA==
+
 react-native-gesture-handler@^2.15.0, "react-native-gesture-handler@>= 1.0.0", react-native-gesture-handler@>=2.0.0:
   version "2.15.0"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.15.0.tgz"
@@ -5887,6 +5892,16 @@ react-native-gesture-handler@^2.15.0, "react-native-gesture-handler@>= 1.0.0", r
     invariant "^2.2.4"
     lodash "^4.17.21"
     prop-types "^15.7.2"
+
+react-native-image-crop-picker@^0.40.2:
+  version "0.40.3"
+  resolved "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.40.3.tgz"
+  integrity sha512-45PKcTnsnLS+E36YwoXutllQdRSOuOsMN0IRcAcwsFXOuAQIOtugXlAuGGL28JHKb/ATaSSPvqCSrdG65Jv3GA==
+
+react-native-image-picker@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-7.1.2.tgz"
+  integrity sha512-b5y5nP60RIPxlAXlptn2QwlIuZWCUDWa/YPUVjgHc0Ih60mRiOg1PSzf0IjHSLeOZShCpirpvSPGnDExIpTRUg==
 
 react-native-reanimated-carousel@^3.5.1:
   version "3.5.1"
@@ -5928,7 +5943,7 @@ react-native-snap-carousel@^3.9.1:
     prop-types "^15.6.1"
     react-addons-shallow-compare "15.6.2"
 
-react-native@*, react-native@>=0.6.0, react-native@>=0.69, react-native@0.73.6:
+react-native@*, react-native@>=0.40.0, react-native@>=0.6.0, react-native@>=0.69, react-native@0.73.6:
   version "0.73.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.6.tgz"
   integrity sha512-oqmZe8D2/VolIzSPZw+oUd6j/bEmeRHwsLn1xLA5wllEYsZ5zNuMsDus235ONOnCRwexqof/J3aztyQswSmiaA==

@@ -11,7 +11,7 @@ import {UserContext} from './DrawerNavigator';
 const Tab = createBottomTabNavigator();
 const iconHome = require('../assets/icons/home.png');
 const iconWork = require('../assets/icons/work.png');
-const iconService = require('../assets/icons/service.png');
+const iconService = require('../assets/icons/24-7-support.png');
 const iconMessage = require('../assets/icons/message.png');
 
 const BottomTab = () => {

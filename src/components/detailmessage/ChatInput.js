@@ -32,7 +32,7 @@ const ChatInput = props => {
         {...props}
         style={{
           borderRadius: 20,
-          color: Color.black(),
+          color: Color.white(),
         }}
       />
       <TouchableOpacity
