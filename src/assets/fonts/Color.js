@@ -9,7 +9,7 @@ class Color {
     return '#3898FF';
   }
   red() {
-    return '#B71C1C';
+    return '#F14131';
   }
   brown() {
     return '#ae663a';

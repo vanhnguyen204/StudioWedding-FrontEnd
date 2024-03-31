@@ -3,7 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import BottomTab from './BottomTab';
 import WorkSchedule from '../screens/WorkSchedule';
 import {TouchableOpacity, View, Text, SafeAreaView, Image} from 'react-native';
-import Staff from '../screens/Staff';
+import StaffList from '../screens/manage/staff/StaffList';
 import Color from '../assets/fonts/Color';
 import ServiceList from "../screens/manage/service/ServiceList";
 
@@ -79,6 +79,28 @@ const DrawerNavigator = ({route}) => {
             Nhân viên của bạn
           </Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginLeft: 10,
+            marginTop: 5
+          }}
+          onPress={() => navigation.navigate('ManageWork')}>
+          <Image
+            source={require('../assets/icons/work.png')}
+            style={{
+              height: 30,
+              width: 30,
+              marginRight: 10,
+              tintColor: Color.white(),
+            }}
+          />
+          <Text style={{fontSize: 16, color: Color.white()}}>
+            Nhân viên của bạn
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={{
             flexDirection: 'row',
@@ -108,7 +130,7 @@ const DrawerNavigator = ({route}) => {
         screenOptions={{headerShown: false}}>
         <Drawer.Screen name="BottomTab" component={BottomTab} />
         <Drawer.Screen name="WorkSchedule" component={WorkSchedule} />
-        <Drawer.Screen name="Staff" component={Staff} />
+        <Drawer.Screen name="Staff" component={StaffList} />
         <Drawer.Screen name="ServiceManage" component={ServiceList} />
       </Drawer.Navigator>
     </UserContext.Provider>

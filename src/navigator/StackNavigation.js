@@ -8,6 +8,8 @@ import BottomTab from './BottomTab';
 import DetailMessage from '../screens/DetailMessage';
 import ServiceHandle from '../screens/manage/service/ServiceHandle';
 import DetailService from '../screens/public/DetailService';
+import ListWorkSchedule from '../screens/manage/work/ListWorkSchedule';
+import DetailWork from '../screens/manage/work/DetailWork';
 
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
@@ -42,6 +44,16 @@ const StackNavigation = () => {
         options={{headerShown: false}}
         name="DetailService"
         component={DetailService}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="ManageWork"
+        component={ListWorkSchedule}
+      />
+      <Stack.Screen
+        name="DetailWork"
+        component={DetailWork}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

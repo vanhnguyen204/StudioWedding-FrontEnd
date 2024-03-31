@@ -73,7 +73,6 @@ const Service = ({navigation}) => {
       unsub();
     };
   }, [navigation]);
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header toggleMenu={() => navigation.toggleDrawer()} />
