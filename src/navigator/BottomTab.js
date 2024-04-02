@@ -7,13 +7,14 @@ import Message from '../screens/Message';
 import IconBottomTab from '../components/global/IconBottomTab';
 import {Platform} from 'react-native';
 import {UserContext} from './DrawerNavigator';
+import Cart from "../screens/Cart";
 
 const Tab = createBottomTabNavigator();
 const iconHome = require('../assets/icons/home.png');
 const iconWork = require('../assets/icons/work.png');
 const iconService = require('../assets/icons/24-7-support.png');
 const iconMessage = require('../assets/icons/message.png');
-
+const iconCart = require('../assets/icons/cart.png');
 const BottomTab = () => {
   const {userName} = useContext(UserContext);
   return (

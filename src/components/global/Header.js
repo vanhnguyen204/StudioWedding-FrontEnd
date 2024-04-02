@@ -1,8 +1,9 @@
-import React, { memo } from "react";
+import React, {memo} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const Header = ({title, toggleMenu}) => {
-  console.log('render home');
+const Header = ({title = '', toggleMenu}) => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -18,7 +19,7 @@ const Header = ({title, toggleMenu}) => {
         />
       </TouchableOpacity>
       <Text>{title ?? ''}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('MyInformation')}>
         <Image
           source={require('../../assets/icons/profile-user.png')}
           style={{width: 30, height: 30}}

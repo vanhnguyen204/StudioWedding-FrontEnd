@@ -10,6 +10,10 @@ import ServiceHandle from '../screens/manage/service/ServiceHandle';
 import DetailService from '../screens/public/DetailService';
 import ListWorkSchedule from '../screens/manage/work/ListWorkSchedule';
 import DetailWork from '../screens/manage/work/DetailWork';
+import {MyInformation} from '../screens/MyInformation';
+import Ordering from '../screens/Ordering';
+import Invoice from '../screens/Invoice';
+import InvoiceDetail from '../screens/InvoiceDetail';
 
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
@@ -53,6 +57,26 @@ const StackNavigation = () => {
       <Stack.Screen
         name="DetailWork"
         component={DetailWork}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="MyInformation"
+        component={MyInformation}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Ordering"
+        component={Ordering}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Invoice"
+        component={Invoice}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="InvoiceDetail"
+        component={InvoiceDetail}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

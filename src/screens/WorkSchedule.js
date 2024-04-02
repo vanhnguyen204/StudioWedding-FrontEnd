@@ -14,8 +14,9 @@ import {DayOfTheWeeks} from '../utils/DayOfTheWeeks';
 import axios from 'axios';
 import {IP_Address} from '../utils/IP_Address';
 import DatePicker from 'react-native-date-picker';
-import ItemWork from '../components/work/ItemWork';
+
 import {useSelector} from 'react-redux';
+import ItemMyWork from '../components/work/ItemMyWork';
 
 const WorkSchedule = ({navigation}) => {
   const [date, setDate] = useState(new Date());
@@ -34,33 +35,41 @@ const WorkSchedule = ({navigation}) => {
     return days[dayIndex] + ' ' + day + '-T' + month + '-' + year;
   }, [date]);
 
-  const getMyWorkSchedules = useCallback(() => {
+  const formatDate = date => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  const getMyWorkSchedules = useCallback(async () => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const dayIndex = date.getDay();
+    const formattedDate = formatDate(date);
     console.log('call');
-    axios
-      .post(IP_Address + '/api/work-schedules/my-work', {
-        userName: userName,
-        dayOfWeek: days[dayIndex],
-        fullDate:
-          date.getDate() +
-          '-' +
-          (date.getMonth() + 1) +
-          '-' +
-          date.getFullYear(),
-      })
-      .then(res => {
-        if (res.data) {
-          console.log('ok');
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    try {
+      const response = await axios.post(
+        `${IP_Address}/api/work-schedules/my-work`,
+        {
+          userName,
+          dayOfWeek: days[dayIndex],
+          fullDate: formattedDate,
+        },
+      );
+      if (response.data) {
+        setListWorkSchedule(response.data);
+      }
+    } catch (error) {
+
+    }
   }, [date, userName]);
   useEffect(() => {
     const unsub = navigation.addListener('focus', () => {
-      getMyWorkSchedules();
+      getMyWorkSchedules()
+        .then(() => {})
+        .catch(e => {
+          console.error('Lỗi lấy lịch làm việc!', e);
+        });
     });
 
     return () => {
@@ -85,7 +94,7 @@ const WorkSchedule = ({navigation}) => {
           marginTop: -20,
           borderRadius: 20,
           overflow: 'hidden',
-          backgroundColor: Color.white(),
+          backgroundColor: '#F2F2F2',
           flex: 1,
         }}>
         <View style={{padding: 10}}>
@@ -155,7 +164,7 @@ const WorkSchedule = ({navigation}) => {
           ) : (
             <FlatList
               data={listWorkSchedule}
-              renderItem={({item, index}) => <ItemWork item={item} />}
+              renderItem={({item, index}) => <ItemMyWork item={item} />}
             />
           )}
         </View>

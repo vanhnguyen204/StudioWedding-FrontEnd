@@ -1,10 +1,24 @@
-import React, {useCallback, useContext, useState} from 'react';
-import {Dimensions, Image, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {
+  Dimensions,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Header from '../components/global/Header';
 import Carousel from 'react-native-reanimated-carousel';
 import ItemBanner from '../components/home/ItemBanner';
 import {Pagination} from 'react-native-snap-carousel';
+import Carousel2 from 'react-native-snap-carousel';
+
 import Search from '../components/global/Search';
+import axios from 'axios';
+import {IP_Address} from '../utils/IP_Address';
+import ItemServiceHot from '../components/service/ItemServiceHot';
+import Screen from '../components/global/Screen';
 
 const Home = ({navigation}) => {
   const {width, height} = Dimensions.get('window');
@@ -45,25 +59,76 @@ const Home = ({navigation}) => {
   //     />
   //   );
   // };
+  const [listServiceHot, setListServiceHot] = useState([]);
+  const fetchServicesHot = () => {
+    axios
+      .get(IP_Address + '/api/services/hot/')
+      .then(res => {
+        if (res.data) {
+          setListServiceHot(res.data);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    const unsub = navigation.addListener('focus', () => {
+      fetchServicesHot();
+    });
+    return () => {
+      unsub();
+    };
+  }, [navigation]);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Header toggleMenu={onToggleMenu} />
-      <Carousel
-        type="stack-horizontal-left"
-        loop
-        width={width}
-        height={width / 1.5}
-        autoPlay={true}
-        data={banners}
-        scrollAnimationDuration={3500}
-        onSnapToItem={index => setActiveDot(index)}
-        renderItem={({item, index}) => <ItemBanner item={item} key={index} />}
-      />
-      {/*{pagination()}*/}
-      <Search
-        placeholder={'Search...'}
-        placeholderTextColor={'rgba(0,0,0,0.5)'}
-      />
+      <ScrollView nestedScrollEnabled={true}>
+        <Screen>
+          <Carousel
+            type="stack-horizontal-left"
+            loop
+            width={width}
+            height={width / 1.5}
+            autoPlay={true}
+            data={banners}
+            scrollAnimationDuration={3500}
+            onSnapToItem={index => setActiveDot(index)}
+            renderItem={({item, index}) => (
+              <ItemBanner item={item} key={index} />
+            )}
+          />
+          {/*{pagination()}*/}
+          <Search
+            placeholder={'Search...'}
+            placeholderTextColor={'rgba(0,0,0,0.5)'}
+          />
+          {listServiceHot.length === 0 ? (
+            <View>
+              <Text style={{alignSelf: 'center'}}>Chưa có sản phẩm hot</Text>
+            </View>
+          ) : (
+            <View style={{marginVertical: 15}}>
+              <Text style={{marginLeft: 10, fontSize: 24}}>HOT</Text>
+              <Carousel2
+                containerCustomStyle={{overflow: 'visible', marginTop: 15}}
+                firstItem={1}
+                itemWidth={width * 0.65}
+                sliderWidth={width}
+                loop={false}
+                inactiveSlideScale={0.75}
+                inactiveSlideOpacity={0.75}
+                data={listServiceHot}
+                slideStyle={{display: 'flex', alignItems: 'center'}}
+                renderItem={({item, index}) => {
+                  return <ItemServiceHot count={item.count} item={item.data} />;
+                }}
+              />
+            </View>
+          )}
+        </Screen>
+      </ScrollView>
     </SafeAreaView>
   );
 };

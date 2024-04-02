@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from "react";
 import {Dimensions, Image, ImageBackground, Text, View} from 'react-native';
 import Color from '../../assets/fonts/Color';
 const {width} = Dimensions.get('window');
@@ -18,4 +18,4 @@ const ItemBanner = ({item}) => {
   );
 };
 
-export default ItemBanner;
+export default memo(ItemBanner);
