@@ -76,7 +76,6 @@ const Service = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header toggleMenu={() => navigation.toggleDrawer()} />
-      <Search placeholder={'Search...'} placeholderTextColor={Color.gray()} />
       <ScrollView nestedScrollEnabled={true}>
         <Screen>
           <ListService title={'Xe hoa'} data={serviceStaff.cars} />

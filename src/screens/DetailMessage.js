@@ -24,8 +24,8 @@ import axios from 'axios';
 const socket = io(IP_SocketIo);
 const DetailMessage = ({route, navigation}) => {
   const userName = useSelector(state => state.user.userName);
-  const {fullNameUserReceiveChat, userNameReceive} = route.params;
-  console.log('user detail message' + userName);
+  const {fullNameUserReceiveChat, userNameReceive, imageUserReceive} =
+    route.params;
   const {width} = Dimensions.get('window');
   const [chatValue, setChatValue] = useState('');
   const [chats, setChats] = useState([]);
@@ -84,6 +84,7 @@ const DetailMessage = ({route, navigation}) => {
               <Header
                 onBack={() => navigation.goBack()}
                 userName={fullNameUserReceiveChat}
+                imageUserReceive={imageUserReceive}
               />
               <FlatList
                 data={chats}
@@ -103,8 +104,12 @@ const DetailMessage = ({route, navigation}) => {
                         }}>
                         {item.userSend !== userName ? (
                           <Image
-                            source={require('../assets/icons/profile-user.png')}
-                            style={{width: 30, height: 30}}
+                            source={
+                              imageUserReceive
+                                ? {uri: IP_Address + imageUserReceive}
+                                : require('../assets/icons/profile-user.png')
+                            }
+                            style={{width: 30, height: 30, borderRadius: 50}}
                           />
                         ) : null}
 

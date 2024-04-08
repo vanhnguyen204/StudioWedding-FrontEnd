@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 
-const Header = () => {
+const Header = ({onPress}) => {
   return (
     <View
       style={{
@@ -10,12 +10,12 @@ const Header = () => {
         justifyContent: 'space-between',
       }}>
       <Text style={{fontSize: 40}}>Message</Text>
-      <TouchableOpacity>
-        <Image
-          source={require('../../assets/icons/plus.png')}
-          style={{height: 30, width: 30}}
-        />
-      </TouchableOpacity>
+      {/*<TouchableOpacity onPress={onPress}>*/}
+      {/*  <Image*/}
+      {/*    source={require('../../assets/icons/plus.png')}*/}
+      {/*    style={{height: 30, width: 30}}*/}
+      {/*  />*/}
+      {/*</TouchableOpacity>*/}
     </View>
   );
 };

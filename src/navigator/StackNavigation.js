@@ -14,6 +14,8 @@ import {MyInformation} from '../screens/MyInformation';
 import Ordering from '../screens/Ordering';
 import Invoice from '../screens/Invoice';
 import InvoiceDetail from '../screens/InvoiceDetail';
+import Statistical from '../screens/Statistical';
+import {ForgotPassword} from '../screens/ForgotPassword';
 
 const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
@@ -77,6 +79,16 @@ const StackNavigation = () => {
       <Stack.Screen
         name="InvoiceDetail"
         component={InvoiceDetail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Statistical"
+        component={Statistical}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -6,7 +6,7 @@ class Color {
     return '#000';
   }
   blue() {
-    return '#3898FF';
+    return '#55a6d8';
   }
   red() {
     return '#F14131';

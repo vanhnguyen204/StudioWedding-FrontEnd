@@ -16,7 +16,7 @@ const iconService = require('../assets/icons/24-7-support.png');
 const iconMessage = require('../assets/icons/message.png');
 const iconCart = require('../assets/icons/cart.png');
 const BottomTab = () => {
-  const {userName} = useContext(UserContext);
+
   return (
     <Tab.Navigator
       screenOptions={{

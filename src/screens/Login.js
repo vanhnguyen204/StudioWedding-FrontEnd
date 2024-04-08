@@ -9,6 +9,7 @@ import {
   Platform,
   Text,
   TextInput,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -16,7 +17,7 @@ import Color from '../assets/fonts/Color';
 import InputLogin from '../components/login/InputLogin';
 import ButtonConfirm from '../components/login/ButtonConfirm';
 import {useDispatch} from 'react-redux';
-import {setUser} from '../redux/userAction';
+import {setUser, setUserData, setUserField} from '../redux/userAction';
 import axios from 'axios';
 import {IP_Address, localhost} from '../utils/IP_Address';
 
@@ -34,22 +35,51 @@ const Login = ({navigation}) => {
   }, []);
 
   const checkLogin = () => {
-    axios
-      .post(IP_Address + '/api/auth/login', {
-        UserName: userName,
-        Password: passWord,
-      })
-      .then(res => {
-        if (res.data.error) {
-          Alert.alert('Thông báo', res.data.error);
-        } else {
-          dispatch(setUser(res.data.user.UserName));
-          navigation.navigate('Drawer', {userName: userName});
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    if (!userName) {
+      Alert.alert('Thông báo', 'Không được để trống tài khoản!');
+    } else if (!passWord) {
+      Alert.alert('Thông báo', 'Không được để trống mật khẩu!');
+    } else {
+      axios
+        .post(IP_Address + '/api/auth/login', {
+          UserName: userName,
+          Password: passWord,
+        })
+        .then(res => {
+          if (res.data.error) {
+            Alert.alert('Thông báo', res.data.error);
+          } else {
+            const {
+              _id,
+              UserName,
+              FullName,
+              Image,
+              Role,
+              PhoneNumber,
+              Address,
+              Email,
+            } = res.data.user;
+            dispatch(
+              setUserData({
+                userName: UserName,
+                fullName: FullName,
+                image: Image,
+                role: Role,
+                address: Address,
+                phoneNumber: PhoneNumber,
+                email: Email,
+                _id: _id,
+              }),
+            );
+            setUserName('');
+            setPassWord('');
+            navigation.navigate('Drawer', {userName: userName});
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   };
   return (
     <KeyboardAvoidingView
@@ -85,6 +115,12 @@ const Login = ({navigation}) => {
             placeholder={'Password'}
             toggleSecurePassword={toggleSecurePassword}
           />
+          <View style={{alignSelf: 'flex-end', marginVertical: 5}}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgotPassword')}>
+              <Text style={{color: Color.white()}}>Forgot password?</Text>
+            </TouchableOpacity>
+          </View>
           <ButtonConfirm name={'Confirm'} onPress={checkLogin} />
         </ImageBackground>
       </TouchableWithoutFeedback>

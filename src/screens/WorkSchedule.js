@@ -2,28 +2,37 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   FlatList,
   Image,
-  Pressable,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import HeaderBack from '../components/global/HeaderBack';
 import Color from '../assets/fonts/Color';
-import {DayOfTheWeeks} from '../utils/DayOfTheWeeks';
-import axios from 'axios';
-import {IP_Address} from '../utils/IP_Address';
+import HeaderBack from '../components/global/HeaderBack';
 import DatePicker from 'react-native-date-picker';
-
-import {useSelector} from 'react-redux';
+import ItemWork from '../components/work/ItemWork';
+import {DayOfTheWeeks} from '../utils/DayOfTheWeeks';
+import {IP_Address} from '../utils/IP_Address';
+import axios from 'axios';
 import ItemMyWork from '../components/work/ItemMyWork';
+import {useSelector} from 'react-redux';
+import ModalLoading from "../components/global/ModalLoading";
 
-const WorkSchedule = ({navigation}) => {
+const WorkSchedule = () => {
+  const userInfor = useSelector(state => state.user);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [listWorkSchedule, setListWorkSchedule] = useState([]);
   const [isDaySelected, setIsDaySelected] = useState('Mon');
-  const {userName} = useSelector(state => state.user);
+  const [isBottomSheetShow, setIsBottomSheetShow] = useState(false);
+  const getDate = useMemo(() => {
+    return (
+      date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+    );
+  }, [date]);
+  const toggleBottomSheet = () => {
+    setIsBottomSheetShow(prevState => !prevState);
+  };
 
   const getInforDate = useMemo(() => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -34,51 +43,38 @@ const WorkSchedule = ({navigation}) => {
     setIsDaySelected(days[dayIndex]);
     return days[dayIndex] + ' ' + day + '-T' + month + '-' + year;
   }, [date]);
-
-  const formatDate = date => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  };
-
-  const getMyWorkSchedules = useCallback(async () => {
+  const getWorkWithDayOfWeek = useCallback(() => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const dayIndex = date.getDay();
-    const formattedDate = formatDate(date);
-    console.log('call');
-    try {
-      const response = await axios.post(
-        `${IP_Address}/api/work-schedules/my-work`,
-        {
-          userName,
-          dayOfWeek: days[dayIndex],
-          fullDate: formattedDate,
-        },
-      );
-      if (response.data) {
-        setListWorkSchedule(response.data);
-      }
-    } catch (error) {
-
-    }
-  }, [date, userName]);
+    axios
+      .post(IP_Address + '/api/work-schedules/my-work/', {
+        userName: userInfor.userName,
+        fullDate:
+          date.getDate() +
+          '-' +
+          (date.getMonth() + 1) +
+          '-' +
+          date.getFullYear(),
+        dayOfWeek: days[dayIndex],
+      })
+      .then(res => {
+        if (res.data) {
+          setListWorkSchedule(res.data);
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }, [date, userInfor.userName]);
   useEffect(() => {
-    const unsub = navigation.addListener('focus', () => {
-      getMyWorkSchedules()
-        .then(() => {})
-        .catch(e => {
-          console.error('Lỗi lấy lịch làm việc!', e);
-        });
-    });
-
-    return () => {
-      unsub();
-    };
-  }, [getMyWorkSchedules, navigation]);
+    getWorkWithDayOfWeek();
+  }, [isDaySelected, date, getWorkWithDayOfWeek]);
   return (
     <View style={{flex: 1}}>
       <SafeAreaView style={{backgroundColor: Color.blue()}}>
+        <View style={{position: 'absolute', left: 0, top: 50}}>
+          <HeaderBack />
+        </View>
         <Text
           style={{
             fontSize: 32,
@@ -86,7 +82,7 @@ const WorkSchedule = ({navigation}) => {
             marginBottom: 40,
             color: Color.white(),
           }}>
-          Your work schedule
+          Work schedule
         </Text>
       </SafeAreaView>
       <SafeAreaView
@@ -94,7 +90,7 @@ const WorkSchedule = ({navigation}) => {
           marginTop: -20,
           borderRadius: 20,
           overflow: 'hidden',
-          backgroundColor: '#F2F2F2',
+          backgroundColor: Color.white(),
           flex: 1,
         }}>
         <View style={{padding: 10}}>

@@ -100,10 +100,10 @@ const Home = ({navigation}) => {
             )}
           />
           {/*{pagination()}*/}
-          <Search
-            placeholder={'Search...'}
-            placeholderTextColor={'rgba(0,0,0,0.5)'}
-          />
+          {/*<Search*/}
+          {/*  placeholder={'Search...'}*/}
+          {/*  placeholderTextColor={'rgba(0,0,0,0.5)'}*/}
+          {/*/>*/}
           {listServiceHot.length === 0 ? (
             <View>
               <Text style={{alignSelf: 'center'}}>Chưa có sản phẩm hot</Text>
